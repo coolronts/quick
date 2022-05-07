@@ -1,5 +1,5 @@
 import { DownArrow } from '../Icons/Icons';
-import {colorTheme} from '../../atom/index'
+import {currentTheme} from '../../atoms/index'
 import styles from './Menu.module.css';
 import {useRecoilValue} from 'recoil'
 
@@ -9,10 +9,10 @@ type PropParentMenuItem = {
 }
 export const ParentMenuItem: React.FC<PropParentMenuItem> = ({ name, isChildren }) => {
 
-const color = useRecoilValue(colorTheme);
+    const currentThemes = useRecoilValue(currentTheme);
     return (
         <div className={styles.parentMenuItem}>
-            <p style={{color: color}}>{name}</p>
+            <p style={{color: currentThemes.primaryTextColor}} >{name}</p>
             {isChildren && <DownArrow />}
         </div>
     );
