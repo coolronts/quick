@@ -1,12 +1,12 @@
 import './App.css';
 
 import { Route, Routes } from "react-router-dom";
+import { allColorTheme, currentTheme } from './atoms/index'
 import {useEffect, useState} from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import {Front} from './pages';
 import {SettingDao} from './apis/settings';
-import { allColorTheme } from './atoms/index'
-import { useRecoilState } from 'recoil';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,11 +17,13 @@ function App() {
       setIsLoading(false);
     });
   }, []);
+
+  const currentThemes = useRecoilValue(currentTheme);
   
   return (
     <>
       {isLoading ? <div>Loading...</div> :
-        <div className="App" style={{  height:"100vh" }}>
+        <div className="App" style={{ backgroundColor:currentThemes.backgroundColor,  height:"100vh"}}>
           <Routes>
             <Route path="/" element={<Front />} />
           </Routes>

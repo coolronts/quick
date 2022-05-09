@@ -13,7 +13,7 @@ export const ParentMenuItem: React.FC<PropParentMenuItem> = ({ name, isChildren 
     return (
         <div className={styles.parentMenuItem}>
             <p style={{color: currentThemes.primaryTextColor}} >{name}</p>
-            {isChildren && <DownArrow />}
+            {isChildren && <DownArrow style={{color: currentThemes.primaryTextColor}}/>}
         </div>
     );
 }

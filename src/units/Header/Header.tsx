@@ -1,26 +1,29 @@
-import {DarkLightMode} from '../../components/Icons/Icons';
+import {DarkLightMode, LoginIcon} from '../../components/Icons/Icons';
+
 import {Logo} from '../../components/Logo/Logo';
-import {Navbar} from '../Navbar/Navbar';
+import LogoGroup from '../LogoGroup/LogoGroup';
+import Searchbar from '../../components/SearchInput/SearchInput';
 import {colorMode} from '../../atoms/index';
 import styles from './Header.module.css';
-import {useRecoilState} from 'recoil';
+import { useRecoilState } from 'recoil';
 
 type HeaderProps = {
-    title: string;
 }
-
 
 export const Header: React.FC<HeaderProps> = () => {
     const [colorModeState, setColorModeState] = useRecoilState(colorMode);
     const handleColorMode = () => setColorModeState(!colorModeState);
 
     return (
-        <div className="Header">
+        <div className="Header" style={{ padding: '0 420px' }}>
             <div className={styles.firstLine}>
                 <Logo />
-                <DarkLightMode className={styles.icon} style={{ fontSize: '30px' }} onClick={()=> handleColorMode() }/>
+                <Searchbar />
+                <LogoGroup>
+                    <LoginIcon title="Login"/>
+                    <DarkLightMode title="Change Theme" onClick={() => handleColorMode()} />
+                </LogoGroup>
             </div>
-            <Navbar />
         </div>
     );
 }

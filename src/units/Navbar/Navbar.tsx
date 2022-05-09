@@ -1,11 +1,9 @@
 import {useEffect, useState} from 'react';
 
 import {ParentMenuItem} from '../../components/Menu/Menu';
+import {currentTheme} from '../../atoms/index';
 import styles from './Navbar.module.css';
-
-type NavbarExtendedProps = {
-    children: any;
-}
+import {useRecoilValue} from 'recoil';
 
 const menu = [
     {
@@ -43,7 +41,7 @@ const menu = [
     }
 ];
 
-export const Navbar: React.FC = () => {
+const Navbar: React.FC = () => {
     const [childrenItem, setChildrenItem]: any = useState([]);
     const [parentIndex, setParentIndex]: any = useState();
 
@@ -62,12 +60,14 @@ export const Navbar: React.FC = () => {
     useEffect(() => {
     }, [childrenItem]);
 
+    const currentThemes = useRecoilValue(currentTheme);
+
     return (
-        <>
-            <div className={styles.navbarContainer}>
+        <div className={styles.container}>
+            <div className={styles.navbarContainer} style={{backgroundColor: currentThemes.backgroundColor}} >
                 {menu.map((item, index) => {
                     return (
-                        <div className={styles.navbarItem} key={index} onClick={()=>menuOpen(item.children, index)}>
+                        <div className={styles.navbarItem} key={index} onClick={() => menuOpen(item.children, index)}>
                             <ParentMenuItem key={index} name={item.parent} isChildren={item.children.length === 0 ? false : true} />
                         </div>
                     );
@@ -84,6 +84,8 @@ export const Navbar: React.FC = () => {
                     })}
                 </div>
             }
-        </>
+        </div>
     );
 }
+
+export default Navbar;
